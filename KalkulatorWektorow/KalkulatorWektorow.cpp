@@ -55,6 +55,22 @@ public:
 
         return vect<T>(x / len, y / len, z / len);
     }
+
+    vect<T> cross(const vect<T>& other) const {
+        return vect<T>(
+            y * other.z - z * other.y,
+            z * other.x - x * other.z,
+            x * other.y - y * other.x
+        );
+    }
+
+    T triple(const vect<T>& b, const vect<T>& c) const {
+        return cross(b).dot(c);
+    }
+
+    vect<T> directionCosines() const {
+        return unit();
+    }
 };
 
 int main() {
@@ -115,6 +131,35 @@ int main() {
     VC_unit.print();
     cout << "Dlugosc = " << VC_unit.length() << endl;
 
+    cout << "\n--- ILOCZYN WEKTOROWY ---" << endl;
+
+    cout << "VA x VB = ";
+    VA.cross(VB).print();
+
+    cout << "VB x VC = ";
+    VB.cross(VC).print();
+
+    cout << "VC x VA = ";
+    VC.cross(VA).print();
+
+
+    cout << "\n--- POTROJNY ILOCZYN SKALARNY ---" << endl;
+
+    cout << "VABC = " << VA.triple(VB, VC) << endl;
+    cout << "VBCA = " << VB.triple(VC, VA) << endl;
+    cout << "VCAB = " << VC.triple(VA, VB) << endl;
+
+
+    cout << "\n--- KOSINUSY KIERUNKOWE ---" << endl;
+
+    cout << "VA (l,m,n) = ";
+    VA.directionCosines().print();
+
+    cout << "VB (l,m,n) = ";
+    VB.directionCosines().print();
+
+    cout << "VC (l,m,n) = ";
+    VC.directionCosines().print();
 
     return 0;
 }
